@@ -19,18 +19,18 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
         _processUtil = processUtil;
     }
 
-    public async ValueTask Push(string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
+    public ValueTask Push(string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
     {
-        string arguments = CreatePushArgument(path, apiKey, source);
+        var arguments = $"nuget push \"{path}\" -s {source} -k {apiKey}";
 
+        return Execute(arguments, path, apiKey, log, source);
+    }
+
+    public async ValueTask Execute(string arguments, string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
+    {
         if (log)
             _logger.LogInformation("Executing: dotnet {arguments} ...", arguments);
 
         List<string> _ = await _processUtil.StartProcess("dotnet", null, arguments, true, true, log).NoSync();
-    }
-
-    private static string CreatePushArgument(string path, string apiKey, string source)
-    {
-        return $"nuget push \"{path}\" -s {source} -k {apiKey}";
     }
 }
