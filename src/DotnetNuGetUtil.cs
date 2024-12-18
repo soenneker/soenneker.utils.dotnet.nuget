@@ -21,7 +21,7 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
 
     public ValueTask Push(string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
     {
-        var arguments = $"nuget push \"{path}\" -s {source} -k {apiKey}";
+        var arguments = $"push \"{path}\" -s {source} -k {apiKey}";
 
         return Execute(arguments, path, apiKey, log, source);
     }
@@ -31,6 +31,6 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
         if (log)
             _logger.LogInformation("Executing: dotnet {arguments} ...", arguments);
 
-        List<string> _ = await _processUtil.StartProcess("dotnet", null, arguments, true, true, log).NoSync();
+        List<string> _ = await _processUtil.StartProcess("dotnet nuget ", null, arguments, true, true, log).NoSync();
     }
 }
