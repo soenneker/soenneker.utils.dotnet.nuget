@@ -6,8 +6,8 @@ internal class ArgumentUtil
 {
     internal static string NuGetPush(
         string packagePath,
-        string? source = null,
         string? apiKey = null,
+        string? source = null,
         bool? disableBuffering = null,
         bool? noSymbols = null,
         bool? noServiceEndpoint = null,
@@ -19,11 +19,11 @@ internal class ArgumentUtil
     {
         var arguments = $"\"{packagePath}\"";
 
-        if (!source.IsNullOrEmpty())
-            arguments += $" --source {source}";
-
         if (!apiKey.IsNullOrEmpty())
             arguments += $" --api-key {apiKey}";
+
+        if (!source.IsNullOrEmpty())
+            arguments += $" --source {source}";
 
         if (disableBuffering == true)
             arguments += " --disable-buffering";

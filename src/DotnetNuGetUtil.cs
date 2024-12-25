@@ -20,8 +20,8 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
     }
 
     public ValueTask<bool> Push(string packagePath,
-        string? source = "https://api.nuget.org/v3/index.json",
         string? apiKey = null,
+        string? source = "https://api.nuget.org/v3/index.json",
         bool? disableBuffering = null,
         bool? noSymbols = null,
         bool? noServiceEndpoint = null,
@@ -34,8 +34,8 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
     {
         string argument = ArgumentUtil.NuGetPush(
             packagePath,
-            source,
             apiKey,
+            source,
             disableBuffering,
             noSymbols,
             noServiceEndpoint,
