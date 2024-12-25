@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Soenneker.Utils.Dotnet.NuGet.Abstract;
-using Soenneker.Utils.Process.Registrars;
+using Soenneker.Utils.Dotnet.Registrars;
 
 namespace Soenneker.Utils.Dotnet.NuGet.Registrars;
 
@@ -13,18 +13,22 @@ public static class DotnetNuGetUtilRegistrar
     /// <summary>
     /// Adds <see cref="IDotnetNuGetUtil"/> as a singleton service. <para/>
     /// </summary>
-    public static void AddDotnetNuGetUtilAsSingleton(this IServiceCollection services)
+    public static IServiceCollection AddDotnetNuGetUtilAsSingleton(this IServiceCollection services)
     {
+        services.AddDotnetUtilAsSingleton();
         services.TryAddSingleton<IDotnetNuGetUtil, DotnetNuGetUtil>();
-        services.AddProcessUtilAsSingleton();
+
+        return services;
     }
 
     /// <summary>
     /// Adds <see cref="IDotnetNuGetUtil"/> as a scoped service. <para/>
     /// </summary>
-    public static void AddDotnetNuGetUtilAsScoped(this IServiceCollection services)
+    public static IServiceCollection AddDotnetNuGetUtilAsScoped(this IServiceCollection services)
     {
+        services.AddDotnetUtilAsScoped();
         services.TryAddScoped<IDotnetNuGetUtil, DotnetNuGetUtil>();
-        services.AddProcessUtilAsScoped();
+
+        return services;
     }
 }

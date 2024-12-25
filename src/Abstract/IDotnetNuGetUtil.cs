@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Soenneker.Utils.Dotnet.NuGet.Abstract;
@@ -7,16 +8,16 @@ namespace Soenneker.Utils.Dotnet.NuGet.Abstract;
 /// </summary>
 public interface IDotnetNuGetUtil
 {
-    ValueTask Push(string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json");
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="arguments"></param>
-    /// <param name="path">Full path of the .nupkg file</param>
-    /// <param name="apiKey">NuGet server API key</param>
-    /// <param name="log"></param>
-    /// <param name="source">Defaults to https://api.nuget.org/v3/index.json</param>
-    /// <returns></returns>
-    ValueTask Execute(string arguments, string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json");
+    ValueTask<bool> Push(string packagePath,
+        string? source = "https://api.nuget.org/v3/index.json",
+        string? apiKey = null,
+        bool? disableBuffering = null,
+        bool? noSymbols = null,
+        bool? noServiceEndpoint = null,
+        bool? skipDuplicate = null,
+        int? timeout = null,
+        string? symbolSource = null,
+        string? symbolApiKey = null,
+        string? verbosity = null,
+        bool log = true, CancellationToken cancellationToken = default);
 }

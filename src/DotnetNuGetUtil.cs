@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Soenneker.Extensions.ValueTask;
+using Soenneker.Utils.Dotnet.Abstract;
 using Soenneker.Utils.Dotnet.NuGet.Abstract;
-using Soenneker.Utils.Process.Abstract;
+using Soenneker.Utils.Dotnet.NuGet.Utils;
 
 namespace Soenneker.Utils.Dotnet.NuGet;
 
@@ -11,26 +11,51 @@ namespace Soenneker.Utils.Dotnet.NuGet;
 public class DotnetNuGetUtil : IDotnetNuGetUtil
 {
     private readonly ILogger<DotnetNuGetUtil> _logger;
-    private readonly IProcessUtil _processUtil;
+    private readonly IDotnetUtil _dotnetUtil;
 
-    public DotnetNuGetUtil(ILogger<DotnetNuGetUtil> logger, IProcessUtil processUtil)
+    public DotnetNuGetUtil(ILogger<DotnetNuGetUtil> logger, IDotnetUtil dotnetUtil)
     {
         _logger = logger;
-        _processUtil = processUtil;
+        _dotnetUtil = dotnetUtil;
     }
 
-    public ValueTask Push(string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
+    public ValueTask<bool> Push(string packagePath,
+        string? source = "https://api.nuget.org/v3/index.json",
+        string? apiKey = null,
+        bool? disableBuffering = null,
+        bool? noSymbols = null,
+        bool? noServiceEndpoint = null,
+        bool? skipDuplicate = null,
+        int? timeout = null,
+        string? symbolSource = null,
+        string? symbolApiKey = null,
+        string? verbosity = null,
+        bool log = true, CancellationToken cancellationToken = default)
     {
-        var arguments = $"push \"{path}\" -s {source} -k {apiKey}";
+        string argument = ArgumentUtil.NuGetPush(
+            packagePath,
+            source,
+            apiKey,
+            disableBuffering,
+            noSymbols,
+            noServiceEndpoint,
+            skipDuplicate,
+            timeout,
+            symbolSource,
+            symbolApiKey,
+            verbosity);
 
-        return Execute(arguments, path, apiKey, log, source);
-    }
-
-    public async ValueTask Execute(string arguments, string path, string apiKey, bool log = true, string source = "https://api.nuget.org/v3/index.json")
-    {
-        if (log)
-            _logger.LogInformation("Executing: dotnet {arguments} ...", arguments);
-
-        List<string> _ = await _processUtil.StartProcess("dotnet nuget ", null, arguments, true, true, log).NoSync();
+        return _dotnetUtil.ExecuteCommand(
+            "nuget push",
+            packagePath,
+            path => argument, output =>
+            {
+                // Check for success indicators in the output
+                return true;
+            },
+            null,
+        log,
+            cancellationToken
+        );
     }
 }
