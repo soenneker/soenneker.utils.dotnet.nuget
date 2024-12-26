@@ -9,8 +9,8 @@ namespace Soenneker.Utils.Dotnet.NuGet.Abstract;
 public interface IDotnetNuGetUtil
 {
     ValueTask<bool> Push(string packagePath,
-        string? source = "https://api.nuget.org/v3/index.json",
         string? apiKey = null,
+        string? source = "https://api.nuget.org/v3/index.json",
         bool? disableBuffering = null,
         bool? noSymbols = null,
         bool? noServiceEndpoint = null,
