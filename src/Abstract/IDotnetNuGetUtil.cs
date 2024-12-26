@@ -20,4 +20,14 @@ public interface IDotnetNuGetUtil
         string? symbolApiKey = null,
         string? verbosity = null,
         bool log = true, CancellationToken cancellationToken = default);
+
+    ValueTask<bool> Delete(string packageName,
+        string packageVersion,
+        string? apiKey = null,
+        string? source = "https://api.nuget.org/v3/index.json",
+        bool? noServiceEndpoint = null,
+        bool forceEnglishOutput = true,
+        bool interactive = false,
+        bool nonInteractive = true,
+        bool log = true, CancellationToken cancellationToken = default);
 }

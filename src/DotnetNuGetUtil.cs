@@ -56,7 +56,39 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
                 return false;
             },
             null,
-        log,
+            log,
+            cancellationToken
+        );
+    }
+
+    public ValueTask<bool> Delete(string packageName,
+        string packageVersion,
+        string? apiKey = null,
+        string? source = "https://api.nuget.org/v3/index.json",
+        bool? noServiceEndpoint = null,
+        bool forceEnglishOutput = true,
+        bool interactive = false,
+        bool nonInteractive = true,
+        bool log = true, CancellationToken cancellationToken = default)
+    {
+        // Construct the arguments for the "dotnet nuget delete" command.
+        string argument = ArgumentUtil.NuGetDelete(
+            packageName,
+            packageVersion,
+            apiKey,
+            source,
+            noServiceEndpoint,
+            forceEnglishOutput,
+            interactive,
+            nonInteractive);
+
+        // Execute the command and parse the output to determine success.
+        return _dotnetUtil.ExecuteCommand(
+            "nuget delete",
+            packageName,
+            path => argument, output => { return true; },
+            null,
+            log,
             cancellationToken
         );
     }

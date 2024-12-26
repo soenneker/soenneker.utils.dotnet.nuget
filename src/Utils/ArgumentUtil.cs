@@ -52,4 +52,37 @@ internal class ArgumentUtil
 
         return arguments;
     }
+
+    internal static string NuGetDelete(
+        string packageName,
+        string packageVersion,
+        string? apiKey = null,
+        string? source = null,
+        bool? noServiceEndpoint = null,
+        bool forceEnglishOutput = true,
+        bool interactive = false,
+        bool nonInteractive = true)
+    {
+        var arguments = $"\"{packageName}\" \"{packageVersion}\"";
+
+        if (!apiKey.IsNullOrEmpty())
+            arguments += $" --api-key {apiKey}";
+
+        if (!source.IsNullOrEmpty())
+            arguments += $" --source {source}";
+
+        if (noServiceEndpoint == true)
+            arguments += " --no-service-endpoint";
+
+        if (forceEnglishOutput)
+            arguments += " --force-english-output";
+
+        if (interactive)
+            arguments += " --interactive";
+
+        if (nonInteractive)
+            arguments += " --non-interactive";
+
+        return arguments;
+    }
 }
