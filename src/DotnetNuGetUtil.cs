@@ -50,8 +50,10 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
             packagePath,
             path => argument, output =>
             {
-                // Check for success indicators in the output
-                return true;
+                if (output.Contains("Your package was pushed."))
+                    return true;
+
+                return false;
             },
             null,
         log,
