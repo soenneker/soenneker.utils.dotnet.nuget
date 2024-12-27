@@ -4,7 +4,7 @@ namespace Soenneker.Utils.Dotnet.NuGet.Utils;
 
 internal class ArgumentUtil
 {
-    internal static string NuGetPush(
+    internal static string Push(
         string packagePath,
         string? apiKey = null,
         string? source = null,
@@ -52,7 +52,7 @@ internal class ArgumentUtil
         return arguments;
     }
 
-    internal static string NuGetDelete(
+    internal static string Delete(
         string packageName,
         string packageVersion,
         string? apiKey = null,

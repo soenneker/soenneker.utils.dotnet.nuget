@@ -32,7 +32,7 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
         string? verbosity = null,
         bool log = true, CancellationToken cancellationToken = default)
     {
-        string argument = ArgumentUtil.NuGetPush(
+        string argument = ArgumentUtil.Push(
             packagePath,
             apiKey,
             source,
@@ -72,7 +72,7 @@ public class DotnetNuGetUtil : IDotnetNuGetUtil
         bool log = true, CancellationToken cancellationToken = default)
     {
         // Construct the arguments for the "dotnet nuget delete" command.
-        string argument = ArgumentUtil.NuGetDelete(
+        string argument = ArgumentUtil.Delete(
             packageName,
             packageVersion,
             apiKey,
