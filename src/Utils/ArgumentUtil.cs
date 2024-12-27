@@ -39,7 +39,6 @@ internal class ArgumentUtil
 
         if (timeout.HasValue)
             arguments += $" --timeout {timeout.Value}";
-            arguments += $" --timeout {timeout.Value}";
 
         if (!symbolSource.IsNullOrEmpty())
             arguments += $" --symbol-source {symbolSource}";
