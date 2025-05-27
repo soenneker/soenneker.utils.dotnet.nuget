@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Utils.Dotnet" Version="3.0.2212" />
+        <PackageReference Include="Soenneker.Utils.Dotnet" Version="3.0.2214" />
     </ItemGroup>
 
     <ItemGroup>
