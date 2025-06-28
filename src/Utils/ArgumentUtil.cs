@@ -2,19 +2,10 @@
 
 namespace Soenneker.Utils.Dotnet.NuGet.Utils;
 
-internal class ArgumentUtil
+internal static class ArgumentUtil
 {
-    internal static string Push(
-        string packagePath,
-        string? apiKey = null,
-        string? source = null,
-        bool? disableBuffering = null,
-        bool? noSymbols = null,
-        bool? noServiceEndpoint = null,
-        bool? skipDuplicate = null,
-        int? timeout = null,
-        string? symbolSource = null,
-        string? symbolApiKey = null,
+    internal static string Push(string packagePath, string? apiKey = null, string? source = null, bool? disableBuffering = null, bool? noSymbols = null,
+        bool? noServiceEndpoint = null, bool? skipDuplicate = null, int? timeout = null, string? symbolSource = null, string? symbolApiKey = null,
         string? verbosity = null)
     {
         var arguments = $"\"{packagePath}\"";
@@ -52,15 +43,8 @@ internal class ArgumentUtil
         return arguments;
     }
 
-    internal static string Delete(
-        string packageName,
-        string packageVersion,
-        string? apiKey = null,
-        string? source = null,
-        bool? noServiceEndpoint = null,
-        bool forceEnglishOutput = true,
-        bool interactive = false,
-        bool nonInteractive = true)
+    internal static string Delete(string packageName, string packageVersion, string? apiKey = null, string? source = null, bool? noServiceEndpoint = null,
+        bool forceEnglishOutput = true, bool interactive = false, bool nonInteractive = true)
     {
         var arguments = $"\"{packageName}\" \"{packageVersion}\"";
 

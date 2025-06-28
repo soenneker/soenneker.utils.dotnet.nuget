@@ -15,8 +15,7 @@ public static class DotnetNuGetUtilRegistrar
     /// </summary>
     public static IServiceCollection AddDotnetNuGetUtilAsSingleton(this IServiceCollection services)
     {
-        services.AddDotnetUtilAsSingleton();
-        services.TryAddSingleton<IDotnetNuGetUtil, DotnetNuGetUtil>();
+        services.AddDotnetUtilAsSingleton().TryAddSingleton<IDotnetNuGetUtil, DotnetNuGetUtil>();
 
         return services;
     }
@@ -26,8 +25,7 @@ public static class DotnetNuGetUtilRegistrar
     /// </summary>
     public static IServiceCollection AddDotnetNuGetUtilAsScoped(this IServiceCollection services)
     {
-        services.AddDotnetUtilAsScoped();
-        services.TryAddScoped<IDotnetNuGetUtil, DotnetNuGetUtil>();
+        services.AddDotnetUtilAsScoped().TryAddScoped<IDotnetNuGetUtil, DotnetNuGetUtil>();
 
         return services;
     }
