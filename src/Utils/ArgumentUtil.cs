@@ -1,71 +1,122 @@
 ﻿using Soenneker.Extensions.String;
+using Soenneker.Utils.PooledStringBuilders;
 
 namespace Soenneker.Utils.Dotnet.NuGet.Utils;
 
 internal static class ArgumentUtil
 {
-    internal static string Push(string packagePath, string? apiKey = null, string? source = null, bool? disableBuffering = null, bool? noSymbols = null,
-        bool? noServiceEndpoint = null, bool? skipDuplicate = null, int? timeout = null, string? symbolSource = null, string? symbolApiKey = null,
+    internal static string Push(
+        string packagePath,
+        string? apiKey = null,
+        string? source = null,
+        bool? disableBuffering = null,
+        bool? noSymbols = null,
+        bool? noServiceEndpoint = null,
+        bool? skipDuplicate = null,
+        int? timeout = null,
+        string? symbolSource = null,
+        string? symbolApiKey = null,
         string? verbosity = null)
     {
-        var arguments = $"\"{packagePath}\"";
+        using var psb = new PooledStringBuilder();
+
+        psb.Append('"');
+        psb.Append(packagePath);
+        psb.Append('"');
 
         if (!apiKey.IsNullOrEmpty())
-            arguments += $" --api-key {apiKey}";
+        {
+            psb.Append(" --api-key ");
+            psb.Append(apiKey);
+        }
 
         if (!source.IsNullOrEmpty())
-            arguments += $" --source {source}";
+        {
+            psb.Append(" --source ");
+            psb.Append(source);
+        }
 
         if (disableBuffering == true)
-            arguments += " --disable-buffering";
+            psb.Append(" --disable-buffering");
 
         if (noSymbols == true)
-            arguments += " --no-symbols";
+            psb.Append(" --no-symbols");
 
         if (noServiceEndpoint == true)
-            arguments += " --no-service-endpoint";
+            psb.Append(" --no-service-endpoint");
 
         if (skipDuplicate == true)
-            arguments += " --skip-duplicate";
+            psb.Append(" --skip-duplicate");
 
         if (timeout.HasValue)
-            arguments += $" --timeout {timeout.Value}";
+        {
+            psb.Append(" --timeout ");
+            psb.Append(timeout.Value);
+        }
 
         if (!symbolSource.IsNullOrEmpty())
-            arguments += $" --symbol-source {symbolSource}";
+        {
+            psb.Append(" --symbol-source ");
+            psb.Append(symbolSource);
+        }
 
         if (!symbolApiKey.IsNullOrEmpty())
-            arguments += $" --symbol-api-key {symbolApiKey}";
+        {
+            psb.Append(" --symbol-api-key ");
+            psb.Append(symbolApiKey);
+        }
 
         if (!verbosity.IsNullOrEmpty())
-            arguments += $" --verbosity {verbosity}";
+        {
+            psb.Append(" --verbosity ");
+            psb.Append(verbosity);
+        }
 
-        return arguments;
+        return psb.ToString();
     }
 
-    internal static string Delete(string packageName, string packageVersion, string? apiKey = null, string? source = null, bool? noServiceEndpoint = null,
-        bool forceEnglishOutput = true, bool interactive = false, bool nonInteractive = true)
+    internal static string Delete(
+        string packageName,
+        string packageVersion,
+        string? apiKey = null,
+        string? source = null,
+        bool? noServiceEndpoint = null,
+        bool forceEnglishOutput = true,
+        bool interactive = false,
+        bool nonInteractive = true)
     {
-        var arguments = $"\"{packageName}\" \"{packageVersion}\"";
+        using var psb = new PooledStringBuilder();
+
+        psb.Append('"');
+        psb.Append(packageName);
+        psb.Append("\" \"");
+        psb.Append(packageVersion);
+        psb.Append('"');
 
         if (!apiKey.IsNullOrEmpty())
-            arguments += $" --api-key {apiKey}";
+        {
+            psb.Append(" --api-key ");
+            psb.Append(apiKey);
+        }
 
         if (!source.IsNullOrEmpty())
-            arguments += $" --source {source}";
+        {
+            psb.Append(" --source ");
+            psb.Append(source);
+        }
 
         if (noServiceEndpoint == true)
-            arguments += " --no-service-endpoint";
+            psb.Append(" --no-service-endpoint");
 
         if (forceEnglishOutput)
-            arguments += " --force-english-output";
+            psb.Append(" --force-english-output");
 
         if (interactive)
-            arguments += " --interactive";
+            psb.Append(" --interactive");
 
         if (nonInteractive)
-            arguments += " --non-interactive";
+            psb.Append(" --non-interactive");
 
-        return arguments;
+        return psb.ToString();
     }
 }
