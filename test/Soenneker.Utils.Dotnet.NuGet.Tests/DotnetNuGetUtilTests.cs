@@ -1,21 +1,20 @@
 using Soenneker.Utils.Dotnet.NuGet.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 
 namespace Soenneker.Utils.Dotnet.NuGet.Tests;
 
-[Collection("Collection")]
-public class DotnetNuGetUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class DotnetNuGetUtilTests : HostedUnitTest
 {
     private readonly IDotnetNuGetUtil _util;
 
-    public DotnetNuGetUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public DotnetNuGetUtilTests(Host host) : base(host)
     {
         _util = Resolve<IDotnetNuGetUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
