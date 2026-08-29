@@ -9,22 +9,22 @@ namespace Soenneker.Utils.Dotnet.NuGet.Abstract;
 public interface IDotnetNuGetUtil
 {
     /// <summary>
-    /// Executes the push operation.
+    /// Runs <c>dotnet nuget push</c> with the supplied source, authentication, symbol, and duplicate-handling options.
     /// </summary>
-    /// <param name="packagePath">The package path.</param>
-    /// <param name="apiKey">The API key.</param>
-    /// <param name="source">The source.</param>
-    /// <param name="disableBuffering">The disable buffering.</param>
-    /// <param name="noSymbols">The no symbols.</param>
-    /// <param name="noServiceEndpoint">The no service endpoint.</param>
-    /// <param name="skipDuplicate">The skip duplicate.</param>
-    /// <param name="timeout">The timeout.</param>
-    /// <param name="symbolSource">The symbol source.</param>
-    /// <param name="symbolApiKey">The symbol api key.</param>
-    /// <param name="verbosity">The verbosity.</param>
-    /// <param name="log">The log.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <param name="packagePath">The NuGet package path.</param>
+    /// <param name="apiKey">The package-source API key.</param>
+    /// <param name="source">The NuGet package-source URL.</param>
+    /// <param name="disableBuffering">True to disable request buffering.</param>
+    /// <param name="noSymbols">True to skip a symbols package.</param>
+    /// <param name="noServiceEndpoint">True to use the source exactly rather than append a service endpoint.</param>
+    /// <param name="skipDuplicate">True to treat an existing package as success.</param>
+    /// <param name="timeout">The maximum allowed execution time.</param>
+    /// <param name="symbolSource">The symbols-package source URL.</param>
+    /// <param name="symbolApiKey">The symbols-source API key.</param>
+    /// <param name="verbosity">The <c>dotnet</c> output verbosity.</param>
+    /// <param name="log">True to emit operational logging.</param>
+    /// <param name="cancellationToken">Signals that the operation should stop.</param>
+    /// <returns>True when the command exits successfully.</returns>
     ValueTask<bool> Push(string packagePath,
         string? apiKey = null,
         string? source = "https://api.nuget.org/v3/index.json",
@@ -39,19 +39,19 @@ public interface IDotnetNuGetUtil
         bool log = true, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Executes the delete operation.
+    /// Runs <c>dotnet nuget delete</c> for one package version with the supplied authentication and interaction options.
     /// </summary>
-    /// <param name="packageName">The package name.</param>
-    /// <param name="packageVersion">The package version.</param>
-    /// <param name="apiKey">The API key.</param>
-    /// <param name="source">The source.</param>
-    /// <param name="noServiceEndpoint">The no service endpoint.</param>
-    /// <param name="forceEnglishOutput">The force english output.</param>
-    /// <param name="interactive">The interactive.</param>
-    /// <param name="nonInteractive">The non interactive.</param>
-    /// <param name="log">The log.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <param name="packageName">The NuGet package identifier.</param>
+    /// <param name="packageVersion">The exact package version.</param>
+    /// <param name="apiKey">The package-source API key.</param>
+    /// <param name="source">The NuGet package-source URL.</param>
+    /// <param name="noServiceEndpoint">True to use the source exactly rather than append a service endpoint.</param>
+    /// <param name="forceEnglishOutput">True to force English command output.</param>
+    /// <param name="interactive">True to permit prompts.</param>
+    /// <param name="nonInteractive">True to prevent prompts.</param>
+    /// <param name="log">True to emit operational logging.</param>
+    /// <param name="cancellationToken">Signals that the operation should stop.</param>
+    /// <returns>True when the command exits successfully.</returns>
     ValueTask<bool> Delete(string packageName,
         string packageVersion,
         string? apiKey = null,

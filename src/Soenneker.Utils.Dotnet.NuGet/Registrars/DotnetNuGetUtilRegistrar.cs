@@ -13,6 +13,7 @@ public static class DotnetNuGetUtilRegistrar
     /// <summary>
     /// Adds <see cref="IDotnetNuGetUtil"/> as a singleton service. <para/>
     /// </summary>
+    /// <returns>Adds <see cref="IDotnetNuGetUtil"/> as a singleton service. <para/>.</returns>
     public static IServiceCollection AddDotnetNuGetUtilAsSingleton(this IServiceCollection services)
     {
         services.AddDotnetUtilAsSingleton().TryAddSingleton<IDotnetNuGetUtil, DotnetNuGetUtil>();
@@ -23,6 +24,7 @@ public static class DotnetNuGetUtilRegistrar
     /// <summary>
     /// Adds <see cref="IDotnetNuGetUtil"/> as a scoped service. <para/>
     /// </summary>
+    /// <returns>Adds <see cref="IDotnetNuGetUtil"/> as a scoped service. <para/>.</returns>
     public static IServiceCollection AddDotnetNuGetUtilAsScoped(this IServiceCollection services)
     {
         services.AddDotnetUtilAsScoped().TryAddScoped<IDotnetNuGetUtil, DotnetNuGetUtil>();
