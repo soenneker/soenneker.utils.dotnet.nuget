@@ -4,10 +4,25 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.utils.dotnet.nuget/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.utils.dotnet.nuget/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Utils.Dotnet.NuGet
-### A utility library for dotnet NuGet operations
+A utility library for dotnet NuGet operations.
 
 ## Installation
 
-```
+```bash
 dotnet add package Soenneker.Utils.Dotnet.NuGet
 ```
+
+## Quick start
+
+```csharp
+using Soenneker.Utils.Dotnet.NuGet.Registrars;
+
+services.AddDotnetNuGetUtilAsSingleton();
+```
+
+Then inject `IDotnetNuGetUtil` wherever you need it.
+
+## Common operations
+
+- `Push()` - Runs `dotnet nuget push`; returns `false` and logs when the command fails.
+- `Delete()` - Runs `dotnet nuget delete`; returns `false` and logs when the command fails.
