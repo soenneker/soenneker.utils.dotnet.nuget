@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Soenneker.Extensions.ValueTask;
@@ -31,6 +32,10 @@ public sealed class DotnetNuGetUtil : IDotnetNuGetUtil
 
             return true;
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
         catch
         {
             return false;
@@ -50,6 +55,10 @@ public sealed class DotnetNuGetUtil : IDotnetNuGetUtil
                              .NoSync();
 
             return true;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch
         {

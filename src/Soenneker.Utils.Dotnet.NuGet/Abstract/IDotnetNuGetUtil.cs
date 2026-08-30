@@ -22,7 +22,7 @@ public interface IDotnetNuGetUtil
     /// <param name="symbolSource">The symbols-package source URL.</param>
     /// <param name="symbolApiKey">The symbols-source API key.</param>
     /// <param name="verbosity">The <c>dotnet</c> output verbosity.</param>
-    /// <param name="log">True to emit operational logging.</param>
+    /// <param name="log">Retained for API compatibility; the implementation does not emit operational logs.</param>
     /// <param name="cancellationToken">Signals that the operation should stop.</param>
     /// <returns>True when the command exits successfully.</returns>
     ValueTask<bool> Push(string packagePath,
@@ -49,7 +49,7 @@ public interface IDotnetNuGetUtil
     /// <param name="forceEnglishOutput">True to force English command output.</param>
     /// <param name="interactive">True to permit prompts.</param>
     /// <param name="nonInteractive">True to prevent prompts.</param>
-    /// <param name="log">True to emit operational logging.</param>
+    /// <param name="log">Retained for API compatibility; the implementation does not emit operational logs.</param>
     /// <param name="cancellationToken">Signals that the operation should stop.</param>
     /// <returns>True when the command exits successfully.</returns>
     ValueTask<bool> Delete(string packageName,
