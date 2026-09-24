@@ -54,4 +54,7 @@
     <ItemGroup>
         <Folder Include="Utils\" />
     </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.123" />
+    </ItemGroup>
 </Project>
