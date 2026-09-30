@@ -49,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Utils.Dotnet" Version="4.0.2617" />
+        <PackageReference Include="Soenneker.Utils.Dotnet" Version="4.0.2619" />
     </ItemGroup>
 
     <ItemGroup>
