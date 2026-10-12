@@ -49,13 +49,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Utils.Dotnet" Version="4.0.2630" />
+        <PackageReference Include="Soenneker.Utils.Dotnet" Version="4.0.2632" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Utils\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.125" />
+        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.126" />
     </ItemGroup>
 </Project>
